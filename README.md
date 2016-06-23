@@ -12,9 +12,11 @@ Go to *Window > Plugin Manager*, look for *Delete Small Paths*, and click the *I
 
 #### Manual Installation
 
+Try the easy installation first. Seriously.
+
 1. Download the complete ZIP file and unpack it, or clone the repository.
 2. Double click the .glyphsFilter file. Confirm the dialog that appears in Glyphs.
-3. Restart Glyphs
+3. Restart Glyphs.
 4. You can set a keyboard shortcut in System Preferences.
 
 ### Usage Instructions
@@ -22,12 +24,12 @@ Go to *Window > Plugin Manager*, look for *Delete Small Paths*, and click the *I
 1. Open a glyph in Edit View, or select any number of glyphs in Font or Edit View.
 2. Use *Filter > Delete Small Paths* to bring up the dialog and enter a threshold value.
 
-Alternatively, you can also use it as a custom parameter in an instance:
+Or use it as a custom parameter in an instance:
 
 	Property: Filter
 	Value: DeleteSmallPaths; smallerthan:<threshold>;
 
-If you do not feel like typing it, you can click the *Copy Parameter* button, which puts the custom parameter with the current dialog settings in the clipboard. You can then paste it into an instance parameter field.
+If you do not feel like typing it, you can choose *Copy Custom Parameter* from the gear menu, which puts the custom parameter with the current dialog settings in the clipboard. You can then paste it into an instance parameter field.
 
 ### Requirements
 
@@ -35,8 +37,8 @@ The plugin needs Glyphs 2.3 or higher, running on OS X 10.9 or later.
 
 ### License
 
-Copyright 2014 Rainer Erich Scheichelbauer (@mekkablue).
-Based on sample code by Georg Seifert (@schriftgestalt).
+Copyright 2016 Rainer Erich Scheichelbauer (@mekkablue).
+Based on sample code by Georg Seifert (@schriftgestalt) and Jan Gerner (@yanone).
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
