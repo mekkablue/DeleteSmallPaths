@@ -30,11 +30,13 @@ class DeleteSmallPaths(FilterWithDialog):
 	def settings(self):
 		self.menuName = Glyphs.localize({
 			'en': u'Delete Small Paths',
+			'es': u'Borrar trazados pequeños',
 			'de': u'Kleine Pfade löschen'
 		})
 		
 		self.actionButtonLabel = Glyphs.localize({
 			'en': u'Delete',
+			'es': u'Borrar',
 			'de': u'Löschen'
 		})
 
