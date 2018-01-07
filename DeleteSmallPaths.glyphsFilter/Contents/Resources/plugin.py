@@ -14,17 +14,14 @@
 #
 ###########################################################################################################
 
-
+import objc
+from GlyphsApp import *
 from GlyphsApp.plugins import *
 
 class DeleteSmallPaths(FilterWithDialog):
-
-	# Definitions of IBOutlets
 	
-	# The NSView object from the User Interface. Keep this here!
+	# Definitions of IBOutlets
 	dialog = objc.IBOutlet()
-
-	# Text field in dialog
 	maximumSizeField = objc.IBOutlet()
 	
 	def settings(self):
@@ -39,41 +36,38 @@ class DeleteSmallPaths(FilterWithDialog):
 			'es': u'Borrar',
 			'de': u'Löschen'
 		})
-
+		
 		# Load dialog from .nib (without .extension)
 		self.loadNib('IBdialog', __file__)
-
+	
 	# On dialog show
 	def start(self):
-
 		# Set default setting if not present
-		if not Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea']:
-			Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'] = 400.0
-
-		# Set maxArea of text field
+		Glyphs.registerDefault('com.mekkablue.DeleteSmallPaths.maxArea', 400.0)
+		# Set value of text field
 		self.maximumSizeField.setStringValue_(Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'])
-		
 		# Set focus to text field
 		self.maximumSizeField.becomeFirstResponder()
-
+		
 	# Action triggered by UI
 	@objc.IBAction
 	def setMaxArea_( self, sender ):
-
 		# Store maxArea coming in from dialog
 		Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'] = sender.floatValue()
-
 		# Trigger redraw
 		self.update()
-
+	
 	# Actual filter
 	def filter(self, layer, inEditView, customParameters):
-		try:
-			# Called on font export, get maxArea from customParameters
-			maxArea = customParameters['smallerthan']
-		except:
+		if inEditView:
 			# Called through UI, use stored maxArea
 			maxArea = float(Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'])
+		else:
+			# Called on font export, get maxArea from customParameters
+			try:
+				maxArea = customParameters['smallerthan']
+			except:
+				maxArea = 400.0 # fallback if user didn’t specify anything
 
 		# delete paths below threshold:
 		for pathIndex in range(len(layer.paths))[::-1]:
@@ -81,4 +75,11 @@ class DeleteSmallPaths(FilterWithDialog):
 				del layer.paths[pathIndex]
 	
 	def generateCustomParameter( self ):
-		return "%s; smallerthan:%s;" % (self.__class__.__name__, Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'] )
+		return "%s; smallerthan:%s;" % (
+			self.__class__.__name__,
+			Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea']
+		)
+	
+	def __file__(self):
+		"""Please leave this method unchanged"""
+		return __file__

@@ -6,18 +6,9 @@
 
 ### Installation
 
-#### Easy Installation in Glyphs 2.3+
-
-Go to *Window > Plugin Manager*, look for *Delete Small Paths*, and click the *Install* button next to it, then restart Glyphs.
-
-#### Manual Installation
-
-Try the easy installation first. Seriously.
-
-1. Download the complete ZIP file and unpack it, or clone the repository.
-2. Double click the .glyphsFilter file. Confirm the dialog that appears in Glyphs.
+1. Go to *Window > Plugin Manager.*
+2. Look for *Delete Small Paths*, and click the *Install* button next to it.
 3. Restart Glyphs.
-4. You can set a keyboard shortcut in System Preferences.
 
 ### Usage Instructions
 
@@ -27,7 +18,11 @@ Try the easy installation first. Seriously.
 Or use it as a custom parameter in an instance:
 
 	Property: Filter
-	Value: DeleteSmallPaths; smallerthan:<threshold>;
+	Value: DeleteSmallPaths; smallerthan:<threshold>
+
+E.g.:
+
+	DeleteSmallPaths; smallerthan:2500
 
 If you do not feel like typing it, you can choose *Copy Custom Parameter* from the gear menu, which puts the custom parameter with the current dialog settings in the clipboard. You can then paste it into an instance parameter field.
 
