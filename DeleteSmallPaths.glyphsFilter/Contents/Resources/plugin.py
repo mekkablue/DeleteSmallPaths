@@ -28,13 +28,15 @@ class DeleteSmallPaths(FilterWithDialog):
 		self.menuName = Glyphs.localize({
 			'en': u'Delete Small Paths',
 			'es': u'Borrar trazados pequeños',
-			'de': u'Kleine Pfade löschen'
+			'de': u'Kleine Pfade löschen',
+			'fr': u'Supprimer les petits tracés '
 		})
 		
 		self.actionButtonLabel = Glyphs.localize({
 			'en': u'Delete',
 			'es': u'Borrar',
-			'de': u'Löschen'
+			'de': u'Löschen',
+			'fr': u'Supprimer'
 		})
 		
 		# Load dialog from .nib (without .extension)
