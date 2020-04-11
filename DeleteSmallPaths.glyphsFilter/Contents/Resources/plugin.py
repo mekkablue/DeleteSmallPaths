@@ -76,9 +76,17 @@ class DeleteSmallPaths(FilterWithDialog):
 				maxArea = 400.0 # fallback if user didn’t specify anything
 
 		# delete paths below threshold:
-		for pathIndex in range(len(layer.paths))[::-1]:
-			if layer.paths[pathIndex].area() < maxArea:
-				del layer.paths[pathIndex]
+		try:
+			# GLYPHS 3
+			for shapeIndex in reverse(range(len(layer.shapes))):
+				thisShape = layer.shapes[shapeIndex]
+				if type(thisShape) is GSPath and thisShape.area() < maxArea:
+					del layer.shapes[shapeIndex]
+		except:
+			# GLYPHS 2
+			for pathIndex in reverse(range(len(layer.paths))):
+				if layer.paths[pathIndex].area() < maxArea:
+					del layer.paths[pathIndex]
 
 	@objc.python_method
 	def generateCustomParameter( self ):
