@@ -78,7 +78,7 @@ class DeleteSmallPaths(FilterWithDialog):
 		# delete paths below threshold:
 		try:
 			# GLYPHS 3
-			for shapeIndex in reverse(range(len(layer.shapes))):
+			for shapeIndex in reversed(range(len(layer.shapes))):
 				thisShape = layer.shapes[shapeIndex]
 				if type(thisShape) is GSPath and thisShape.area() < maxArea:
 					del layer.shapes[shapeIndex]
