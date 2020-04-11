@@ -1,4 +1,5 @@
 # encoding: utf-8
+from __future__ import division, print_function, unicode_literals
 
 ###########################################################################################################
 #
@@ -19,17 +20,18 @@ from GlyphsApp import *
 from GlyphsApp.plugins import *
 
 class DeleteSmallPaths(FilterWithDialog):
-	
+
 	# Definitions of IBOutlets
 	dialog = objc.IBOutlet()
 	maximumSizeField = objc.IBOutlet()
-	
+
+	@objc.python_method
 	def settings(self):
 		self.menuName = Glyphs.localize({
 			'en': u'Delete Small Paths',
 			'es': u'Borrar trazados pequeños',
 			'de': u'Kleine Pfade löschen',
-			'fr': u'Supprimer les petits tracés '
+			'fr': u'Supprimer les petits tracés'
 		})
 		
 		self.actionButtonLabel = Glyphs.localize({
@@ -41,8 +43,9 @@ class DeleteSmallPaths(FilterWithDialog):
 		
 		# Load dialog from .nib (without .extension)
 		self.loadNib('IBdialog', __file__)
-	
+
 	# On dialog show
+	@objc.python_method
 	def start(self):
 		# Set default setting if not present
 		Glyphs.registerDefault('com.mekkablue.DeleteSmallPaths.maxArea', 400.0)
@@ -58,8 +61,9 @@ class DeleteSmallPaths(FilterWithDialog):
 		Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'] = sender.floatValue()
 		# Trigger redraw
 		self.update()
-	
+
 	# Actual filter
+	@objc.python_method
 	def filter(self, layer, inEditView, customParameters):
 		if inEditView:
 			# Called through UI, use stored maxArea
@@ -75,13 +79,15 @@ class DeleteSmallPaths(FilterWithDialog):
 		for pathIndex in range(len(layer.paths))[::-1]:
 			if layer.paths[pathIndex].area() < maxArea:
 				del layer.paths[pathIndex]
-	
+
+	@objc.python_method
 	def generateCustomParameter( self ):
 		return "%s; smallerthan:%s;" % (
 			self.__class__.__name__,
 			Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea']
 		)
-	
+
+	@objc.python_method
 	def __file__(self):
 		"""Please leave this method unchanged"""
 		return __file__
