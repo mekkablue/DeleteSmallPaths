@@ -84,7 +84,7 @@ class DeleteSmallPaths(FilterWithDialog):
 					del layer.shapes[shapeIndex]
 		except:
 			# GLYPHS 2
-			for pathIndex in reverse(range(len(layer.paths))):
+			for pathIndex in reversed(range(len(layer.paths))):
 				if layer.paths[pathIndex].area() < maxArea:
 					del layer.paths[pathIndex]
 
