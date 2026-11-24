@@ -89,11 +89,17 @@ class DeleteSmallPaths(FilterWithDialog):
 				if layer.paths[pathIndex].area() < maxArea:
 					del layer.paths[pathIndex]
 
+	def setupWithArguments_(self, arguments):
+		if len(arguments) > 1:
+			key, sep, value = arguments[1].partition(":")
+			if key == "smallerthan" and sep:
+				self.maximumSizeField.setStringValue_(value)
+
 	@objc.python_method
 	def generateCustomParameter(self):
 		return "%s; smallerthan:%s;" % (
 			self.__class__.__name__,
-			Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea']
+			self.maximumSizeField.stringValue()
 		)
 
 	@objc.python_method
