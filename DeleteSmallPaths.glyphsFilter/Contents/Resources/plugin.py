@@ -16,8 +16,9 @@ from __future__ import division, print_function, unicode_literals
 ###########################################################################################################
 
 import objc
-from GlyphsApp import *
-from GlyphsApp.plugins import *
+from GlyphsApp import Glyphs, GSPath
+from GlyphsApp.plugins import FilterWithDialog
+
 
 class DeleteSmallPaths(FilterWithDialog):
 
@@ -33,14 +34,14 @@ class DeleteSmallPaths(FilterWithDialog):
 			'de': u'Kleine Pfade löschen',
 			'fr': u'Supprimer les petits tracés'
 		})
-		
+
 		self.actionButtonLabel = Glyphs.localize({
 			'en': u'Delete',
 			'es': u'Borrar',
 			'de': u'Löschen',
 			'fr': u'Supprimer'
 		})
-		
+
 		# Load dialog from .nib (without .extension)
 		self.loadNib('IBdialog', __file__)
 
@@ -53,10 +54,10 @@ class DeleteSmallPaths(FilterWithDialog):
 		self.maximumSizeField.setStringValue_(Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'])
 		# Set focus to text field
 		self.maximumSizeField.becomeFirstResponder()
-		
+
 	# Action triggered by UI
 	@objc.IBAction
-	def setMaxArea_( self, sender ):
+	def setMaxArea_(self, sender):
 		# Store maxArea coming in from dialog
 		Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea'] = sender.floatValue()
 		# Trigger redraw
@@ -89,7 +90,7 @@ class DeleteSmallPaths(FilterWithDialog):
 					del layer.paths[pathIndex]
 
 	@objc.python_method
-	def generateCustomParameter( self ):
+	def generateCustomParameter(self):
 		return "%s; smallerthan:%s;" % (
 			self.__class__.__name__,
 			Glyphs.defaults['com.mekkablue.DeleteSmallPaths.maxArea']
